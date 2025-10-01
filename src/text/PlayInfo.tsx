@@ -1,4 +1,10 @@
-import { Accordion, AccordionDetails, AccordionSummary, Stack, Typography } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { PropsWithChildren, useEffect, useState } from "react";
 import Play from "../cards/Play";
 import MiniCard from "../cards/MiniCard";
@@ -13,55 +19,79 @@ type Props = PropsWithChildren<{
   term: string;
   category: string;
   victoryType?: string;
-}>
+}>;
 
-export function PlayInfo({playCards, playName, category, term, victoryType, children}: Props) {
+export function PlayInfo({
+  playCards,
+  playName,
+  category,
+  term,
+  victoryType,
+  children,
+}: Props) {
   return (
-    <Accordion 
+    <Accordion
       id={getDefinitionId(category, term)}
       sx={{
-        color: colors.text.default, 
-        bgcolor: colors.background.paper
+        color: colors.text.default,
+        bgcolor: colors.background.paper,
       }}
     >
       <AccordionSummary>
-        <Stack direction="row" justifyContent="space-between" alignItems="center" width="100%">
-          <Stack direction="row" alignItems="center">
-            <Typography variant="h5" minWidth={200}>{playName}</Typography>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          width="100%"
+        >
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            gap={1}
+            alignItems={{ xs: "flex-start", sm: "center" }}
+          >
+            <Typography variant="h5" minWidth={200}>
+              {playName}
+            </Typography>
             <Play Display={MiniCard} cards={playCards} />
           </Stack>
           <Stack direction="row" alignItems="center">
-            {victoryType && <Term category="victory" term={victoryType}><CrownIcon size={24} /></Term>}
+            {victoryType && (
+              <Term category="victory" term={victoryType}>
+                <CrownIcon size={24} />
+              </Term>
+            )}
           </Stack>
         </Stack>
       </AccordionSummary>
-      <AccordionDetails>
-        {children}
-      </AccordionDetails>
+      <AccordionDetails>{children}</AccordionDetails>
     </Accordion>
   );
 }
 
 type Generator = () => string | string[];
 
-type DynamicProps = Omit<Props, 'playCards'> & {
+type DynamicProps = Omit<Props, "playCards"> & {
   generator: Generator;
   interval?: number;
-}
+};
 
 function postProcess(value: string | string[]): string {
-  if (Array.isArray(value)) return value.join(' ');
+  if (Array.isArray(value)) return value.join(" ");
   return value;
 }
 
-export function DynamicPlayInfo({generator, interval=1000, ...props}: DynamicProps) {    
+export function DynamicPlayInfo({
+  generator,
+  interval = 1000,
+  ...props
+}: DynamicProps) {
   const [cards, setCards] = useState(() => postProcess(generator()));
-  
+
   useEffect(() => {
     setCards(postProcess(generator()));
     const key = setInterval(() => setCards(postProcess(generator())), interval);
     return () => clearInterval(key);
-  }, [generator, interval])
+  }, [generator, interval]);
 
-  return <PlayInfo playCards={cards} {...props} />
+  return <PlayInfo playCards={cards} {...props} />;
 }
