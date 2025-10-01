@@ -42,11 +42,14 @@ export function BaseRules() {
           player draws a card, they take the top card from this pile. On the
           opposite side of the arena is the discard pile. Whenever a play allows
           a player to discard cards, they must place them face-down on top of
-          this pile. If the draw pile is ever empty and a player needs to draw a
-          card; remove the top card from the arena and set it down face-up. It
-          becomes the new arena. The rest of the old arena and the discard pile
-          are then combined and shuffled. This becomes the new draw pile. If it
-          is impossible to do this, the game ends in a draw.
+          this pile.
+        </Typography>
+        <Typography variant="body1">
+          If the draw pile is ever empty and a player needs to draw a card;
+          remove the top card from the arena and set it down face-up. It becomes
+          the new arena. The rest of the old arena and the discard pile are then
+          combined and shuffled. This becomes the new draw pile. If it is
+          impossible to do this, the game ends in a draw.
         </Typography>
       </Subsection>
     </Section>
