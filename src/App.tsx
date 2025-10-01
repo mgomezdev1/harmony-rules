@@ -1,4 +1,4 @@
-import { Container, createTheme, Stack, ThemeProvider } from "@mui/material";
+import { Container, Stack } from "@mui/material";
 import Title from "./text/Title";
 import {
   BaseRules,
@@ -7,10 +7,11 @@ import {
   PowerCards,
   Winning,
 } from "./sections";
+import { BaseThemeProvider } from "./providers";
 
 function App() {
   return (
-    <ThemeProvider theme={createTheme({ palette: { mode: "dark" } })}>
+    <BaseThemeProvider>
       <Container sx={{ py: 8 }}>
         <Stack width="100%" gap={1} alignContent="center">
           <Title />
@@ -21,7 +22,7 @@ function App() {
           <OptionalRules />
         </Stack>
       </Container>
-    </ThemeProvider>
+    </BaseThemeProvider>
   );
 }
 

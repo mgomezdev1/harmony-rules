@@ -8,7 +8,6 @@ import {
 import { PropsWithChildren, useEffect, useState } from "react";
 import Play from "../cards/Play";
 import MiniCard from "../cards/MiniCard";
-import { colors } from "../theme";
 import { getDefinitionId } from "./utils";
 import { CrownIcon } from "lucide-react";
 import { Term } from "./Glossary";
@@ -33,8 +32,8 @@ export function PlayInfo({
     <Accordion
       id={getDefinitionId(category, term)}
       sx={{
-        color: colors.text.default,
-        bgcolor: colors.background.paper,
+        color: "text.primary",
+        bgcolor: "background.paper",
       }}
     >
       <AccordionSummary>
